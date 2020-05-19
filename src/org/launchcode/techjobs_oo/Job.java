@@ -1,21 +1,15 @@
 package org.launchcode.techjobs_oo;
-
 import java.util.Objects;
 
-public class Job {
 
+public class Job {
     private Integer id;
     private static Integer nextId = 1;
-
     private String name;
     private Employer employer;
     private Location location;
     private PositionType positionType;
     private CoreCompetency coreCompetency;
-
-    // TODO: Add two constructors - one to initialize a unique ID and a second to initialize the
-    //  other five fields. The second constructor should also call the first in order to initialize
-    //  the 'id' field.
 
     public Job() {
         this.id = nextId;
@@ -31,20 +25,18 @@ public class Job {
         this.coreCompetency = coreCompetency;
     }
 
-    // TODO: Add custom equals and hashCode methods. Consider two Job objects "equal" when their id fields
-    //  match.
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Job job = (Job) o;
-        return id == job.id;
+        return getId().equals(job.getId());
     }
 
     @Override
-    public int hashCode() { return Objects.hash(id); }
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
 
     public Integer getId() { return id; }
     public String getName() { return name; }
@@ -69,23 +61,16 @@ public class Job {
 
         if(getName()==null && getLocation()==null && getPositionType()==null && getCoreCompetency()==null) {
             return "OOPS! This job does not seem to exist";
-        } else {
-
-            if(getName() == null) {toStringName = noData;} else {toStringName = getName();};
-            if(getEmployer() == null) {toStringEmployer = noData;} else {toStringEmployer = getEmployer().toString();};
-            if(getLocation() == null) {toStringLocation = noData;} else {toStringLocation = getLocation().toString();};
-            if(getPositionType() == null) {toStringPositionType = noData;} else {toStringPositionType = getPositionType().toString();};
-            if(getCoreCompetency() == null) {toStringCoreCompetency = noData;} else {toStringCoreCompetency = getCoreCompetency().toString();};
-
-            return
-                    "\n" +
-                    "ID: " + getId() + "\n" +
-                    "Name: " + toStringName + "\n" +
-                    "Employer: " + toStringEmployer + "\n" +
-                    "Location: " + toStringLocation + "\n" +
-                    "Position Type: " + toStringPositionType + "\n" +
-                    "Core Competency: " + toStringCoreCompetency + "\n";
         }
 
+        if(getName() == null || getName().isEmpty()) {toStringName = noData;} else {toStringName = getName();};
+        if(getEmployer() == null || getEmployer().getValue().isEmpty()) {toStringEmployer = noData;} else {toStringEmployer = getEmployer().toString();};
+        if(getLocation() == null || getLocation().getValue().isEmpty()) {toStringLocation = noData;} else {toStringLocation = getLocation().toString();};
+        if(getPositionType() == null || getPositionType().getValue().isEmpty()) {toStringPositionType = noData;} else {toStringPositionType =
+                getPositionType().toString();};
+        if(getCoreCompetency() == null || getCoreCompetency().getValue().isEmpty()) {toStringCoreCompetency = noData;} else {toStringCoreCompetency =
+                getCoreCompetency().toString(); };
+
+        return "\n" + "ID: " + getId() + "\n" + "Name: " + toStringName + "\n" + "Employer: " + toStringEmployer + "\n" + "Location: " + toStringLocation + "\n" + "Position Type: " + toStringPositionType + "\n" + "Core Competency: " + toStringCoreCompetency + "\n";
     }
 }

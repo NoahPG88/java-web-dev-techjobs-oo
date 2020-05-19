@@ -1,12 +1,9 @@
 package org.launchcode.techjobs_oo.Tests;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.launchcode.techjobs_oo.*;
-
-import java.util.ArrayList;
-
 import static org.junit.Assert.*;
+
 
 public class JobTest {
     Job testJob1;
@@ -21,7 +18,6 @@ public class JobTest {
     CoreCompetency testCoreCompetency2;
     Job testJob1Clone;
     Job testJob2Clone;
-
     @Before
     public void testJobs(){
         testEmployer1 = new Employer("testEmployer1");
@@ -32,7 +28,6 @@ public class JobTest {
         testPositionType2 = new PositionType("testPositionType2");
         testCoreCompetency1 = new CoreCompetency("testCoreCompetency1");
         testCoreCompetency2 = new CoreCompetency("testCoreCompetency2");
-
         testJob1 = new Job("testJob1", testEmployer1, testLocation1, testPositionType1, testCoreCompetency1 );
         testJob2 = new Job("testJob2", testEmployer2, testLocation2, testPositionType2, testCoreCompetency2);
         testJob1Clone = new Job("testJob1Clone", testEmployer1, testLocation1, testPositionType1, testCoreCompetency1);
@@ -87,7 +82,7 @@ public class JobTest {
     }
 
     @Test
-    public void testJobFieldsDataValidation(){
+    public void testJobFieldsDataValidationForNull(){
         String idLabel = "ID: "; String nameLabel = "Name: "; String employerLabel = "Employer: "; String locationLabel = "Location: "; String positionTypeLabel = "Position Type: "; String coreCompetencyLabel = "Core Competency: ";
         Job emptyJob = new Job();
         emptyJob.setName("Job has name!");
@@ -97,6 +92,18 @@ public class JobTest {
         assertTrue(emptyJob.getLocation() == null && emptyJob.toString().contains(locationLabel + noData));
         assertTrue(emptyJob.getPositionType() == null && emptyJob.toString().contains(positionTypeLabel + noData));
         assertTrue(emptyJob.getCoreCompetency() == null && emptyJob.toString().contains(coreCompetencyLabel + noData));
+    }
+
+    @Test
+    public void testJobFieldsDataValidationForEmpty(){
+        String idLabel = "ID: "; String nameLabel = "Name: "; String employerLabel = "Employer: "; String locationLabel = "Location: "; String positionTypeLabel = "Position Type: "; String coreCompetencyLabel = "Core Competency: ";
+        Job emptyJob3 = new Job("",new Employer(""),new Location("location name"), new PositionType(""), new CoreCompetency(""));
+        String noData = "Data not available";
+
+        assertTrue(emptyJob3.getName().equals("") && emptyJob3.toString().contains(nameLabel + noData));
+        assertTrue(emptyJob3.getEmployer().getValue().equals("") && emptyJob3.toString().contains(employerLabel + noData));
+        assertTrue(emptyJob3.getPositionType().getValue().isEmpty() && emptyJob3.toString().contains(positionTypeLabel + noData));
+        assertTrue(emptyJob3.getCoreCompetency().getValue().isEmpty() && emptyJob3.toString().contains(coreCompetencyLabel + noData));
     }
     //4. If a job only contains data for the id field the method returns "OOPS! This job does not seem to exist"
     @Test
